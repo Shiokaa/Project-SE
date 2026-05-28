@@ -101,6 +101,40 @@ from ecosystem.world import world
 # Solution : restructurer le code pour éviter la dépendance circulaire
 ```
 
+## Importer des classes (POO)
+
+Même principe que les fonctions — on importe la classe par son nom.
+
+```
+projet/
+├── main.py
+└── ecosystem/
+    ├── __init__.py
+    ├── cell.py       ← contient class Cellule
+    └── entities.py   ← contient class Entite, Proie, Predateur
+```
+
+```python
+# Importer une classe
+from ecosystem.cell import Cellule
+
+c = Cellule(terrain=Terrain.HERBE, ressource=10)
+
+# Importer plusieurs classes d'un même fichier
+from ecosystem.entities import Entite, Proie, Predateur
+
+lapin  = Proie(energie=10)
+renard = Predateur(energie=8)
+
+# Importer une classe parent ET ses enfants
+from ecosystem.entities import Proie, Predateur
+
+entites = [Proie(10), Predateur(8), Proie(7)]
+
+for entite in entites:
+    entite.agir()  # appelle Proie.agir() ou Predateur.agir() automatiquement
+```
+
 ## Structure recommandée pour un projet
 
 ```
