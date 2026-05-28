@@ -1,17 +1,18 @@
 # Généré par IA
 from PIL import Image
+from ecosystem.field import Field
 
 COLORS = {
-    "e": (65, 105, 225),    # bleu océan
-    "ep": (10, 25, 71),     # bleu foncé océan profond
-    "h": (124, 185, 116),   # vert clair herbe
-    "f": (34, 102, 34),     # vert foncé forêt
-    "t": (87, 50, 42)       # marron foncé terre
+    Field.EAU: (65, 105, 225),              # bleu océan
+    Field.EAU_PROFONDE: (10, 25, 71),       # bleu foncé océan profond
+    Field.HERBE: (124, 185, 116),           # vert clair herbe
+    Field.FORET: (34, 102, 34),             # vert foncé forêt
+    Field.TERRE: (87, 50, 42)               # marron foncé terre
 }
 
 CELL = 4  # taille d'un pixel en pixels
 
-def render(grid):
+def render(grid: list[list]):
     h = len(grid)
     w = len(grid[0])
     img = Image.new("RGB", (w * CELL, h * CELL))
