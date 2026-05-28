@@ -144,7 +144,7 @@ empile.
 - [ ] Structures de base : `Monde`, `Cellule`, `Entite`, enum `Terrain`.
 - [ ] Génération d'une grille aléatoire (ou par bruit de Perlin pour de jolis
       continents).
-- [ ] Affichage **terminal en ASCII** (`💧` eau, `🌿` herbe, `🌲` forêt, etc.).
+- [ ] Affichage **terminal en ASCII** (`e` eau, `h` herbe, `f` forêt, etc.).
 - 🎯 _But : voir une carte statique s'afficher._
 
 ### Palier 1 — La vie minimale
