@@ -1,6 +1,8 @@
 import noise
 import random
 from ecosystem.field import Field
+from ecosystem.cell import Cell
+from ecosystem.entity import Prey
 
 class World:
     # Fonction pour créer le monde.
@@ -11,21 +13,23 @@ class World:
     #       - Herbes
     #       - Forêts
     def __init__(self, y: int, x: int, scale: float, octaves: int) -> None:
-        world = [[] for _ in range(y)]
         seed = random.randint(0, 10000)
-        for height in range(y):
-            for width in range(x):
+        self.grid = [
+             [self._create_cell(height=height, width=width, scale=scale, octaves=octaves, seed=seed) for width in range(x)]
+             for height in range(y)
+        ]
+                
+    def _create_cell(self, height: int, width:int, scale: float, octaves: int, seed: int) -> Cell:
                 nx = width / scale + seed
                 ny = height / scale + seed
                 value = noise.pnoise2(ny, nx, octaves=octaves)
                 if value < -0.36:
-                    world[height].append(Field.EAU_PROFONDE)
+                    return Cell(field=Field.EAU_PROFONDE)
                 elif value < -0.16:
-                    world[height].append(Field.EAU)
+                    return Cell(field=Field.EAU, resource=random.randint(0, 10))
                 elif value < -0.06:
-                    world[height].append(Field.TERRE)
-                elif value < 0.14:
-                    world[height].append(Field.HERBE)
+                    return Cell(field=Field.TERRE)
+                elif value < 0.2:
+                    return Cell(field=Field.HERBE, resource=random.randint(0, 10))
                 else:
-                    world[height].append(Field.FORET)
-        self.grid = world
+                    return Cell(field=Field.FORET)
