@@ -71,13 +71,14 @@ moteur. Jamais.** Si on respecte ça, passer de l'un à l'autre est gratuit.
 
 Une grille 2D. Chaque case (cellule) a :
 
-| Attribut        | Description                                              |
-|-----------------|----------------------------------------------------------|
-| `terrain`       | `EAU`, `HERBE`, `FORET`, `DESERT`                        |
-| `ressource`     | quantité de nourriture végétale disponible (0 → max)     |
-| `occupant(s)`   | la ou les entités présentes                              |
+| Attribut      | Description                                          |
+| ------------- | ---------------------------------------------------- |
+| `terrain`     | `EAU`, `HERBE`, `FORET`, `DESERT`                    |
+| `ressource`   | quantité de nourriture végétale disponible (0 → max) |
+| `occupant(s)` | la ou les entités présentes                          |
 
 **L'environnement évolue aussi**, ce ne sont pas que les bestioles qui bougent :
+
 - une case d'herbe **surpâturée** (ressource épuisée trop souvent) → se
   désertifie ;
 - une case herbe/désert **laissée tranquille** longtemps → se reforeste
@@ -96,12 +97,14 @@ Au minimum deux types, mais tous partagent le même squelette : **énergie, âge
 seuil de reproduction.** Ce sont les trois curseurs de vie/mort.
 
 ### Proie (ex. lapin)
+
 - mange la **ressource végétale** de sa case → gagne de l'énergie ;
 - **fuit** si un prédateur est dans son voisinage ;
 - se **reproduit** si son énergie dépasse un seuil (et qu'une case voisine est libre) ;
 - **meurt** si énergie = 0, si trop vieille, ou si mangée.
 
 ### Prédateur (ex. renard)
+
 - **chasse** : se déplace vers la proie la plus proche dans son champ de vision ;
 - mange une proie adjacente → gagne de l'énergie (et la proie meurt) ;
 - se reproduit au-dessus d'un seuil d'énergie ;
@@ -118,7 +121,7 @@ Un tour de monde, dans l'ordre :
 
 1. **Environnement** : repousse des ressources, dé/reforestation des cases.
 2. **Entités** (dans un ordre mélangé pour éviter les biais) : chacune
-   *perçoit* son voisinage, puis *décide* une action (bouger / manger / fuir /
+   _perçoit_ son voisinage, puis _décide_ une action (bouger / manger / fuir /
    chasser / se reproduire).
 3. **Vieillissement & mort** : âge +1, retrait des entités à énergie nulle ou
    trop vieilles.
@@ -137,31 +140,36 @@ L'idée : à chaque palier, **quelque chose de visible et de jouable**, puis on
 empile.
 
 ### Palier 0 — Le squelette
+
 - [ ] Structures de base : `Monde`, `Cellule`, `Entite`, enum `Terrain`.
 - [ ] Génération d'une grille aléatoire (ou par bruit de Perlin pour de jolis
       continents).
-- [ ] Affichage **terminal en ASCII** (`~` eau, `.` herbe, `🌲` forêt, etc.).
-- 🎯 *But : voir une carte statique s'afficher.*
+- [ ] Affichage **terminal en ASCII** (`💧` eau, `🌿` herbe, `🌲` forêt, etc.).
+- 🎯 _But : voir une carte statique s'afficher._
 
 ### Palier 1 — La vie minimale
+
 - [ ] Proies qui bougent, mangent l'herbe, se reproduisent, meurent.
 - [ ] Boucle `step()` + affichage qui se rafraîchit dans le terminal.
-- 🎯 *But : voir une population de lapins exploser puis se stabiliser sur les
-  ressources.*
+- 🎯 _But : voir une population de lapins exploser puis se stabiliser sur les
+  ressources._
 
 ### Palier 2 — Le cycle proie-prédateur
+
 - [ ] Ajout des prédateurs (chasse + faim).
 - [ ] **Courbes matplotlib** : population de proies vs prédateurs dans le temps.
-- 🎯 *But : observer les oscillations de Lotka-Volterra émerger toutes seules.
-  C'est LE moment satisfaisant du projet.*
+- 🎯 _But : observer les oscillations de Lotka-Volterra émerger toutes seules.
+  C'est LE moment satisfaisant du projet._
 
 ### Palier 3 — Le visuel temps réel
+
 - [ ] Renderer **pygame** : grille colorée, entités animées, contrôles
       (pause, vitesse, clic pour inspecter une case).
 - [ ] On garde matplotlib pour les courbes à côté.
-- 🎯 *But : une vitrine agréable à regarder.*
+- 🎯 _But : une vitrine agréable à regarder._
 
 ### Palier 4 et au-delà — La profondeur (au choix, pioche selon l'envie)
+
 - [ ] **Évolution** : les petits héritent des traits des parents avec une légère
       mutation (vitesse, vision, seuil de repro). Sur des milliers de tours, des
       traits se sélectionnent naturellement.
