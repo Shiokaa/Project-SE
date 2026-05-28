@@ -1,6 +1,7 @@
-# Généré par IA
+# Généré par IA et adapté par moi-même
 from PIL import Image
 from ecosystem.field import Field
+from ecosystem.cell import Cell
 
 COLORS = {
     Field.EAU: (65, 105, 225),              # bleu océan
@@ -12,13 +13,13 @@ COLORS = {
 
 CELL = 4  # taille d'un pixel en pixels
 
-def render(grid: list[list]):
+def render(grid: list[Cell]):
     h = len(grid)
     w = len(grid[0])
     img = Image.new("RGB", (w * CELL, h * CELL))
     for y, row in enumerate(grid):
         for x, cell in enumerate(row):
-            color = COLORS[cell]
+            color = COLORS[cell.field]
             for dy in range(CELL):
                 for dx in range(CELL):
                     img.putpixel((x * CELL + dx, y * CELL + dy), color)
