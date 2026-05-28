@@ -1,4 +1,8 @@
-from ecosystem import world
-from renderers import image
+from ecosystem.world import World
+from renderers.image import render
+from renderers.terminal import display
 
-image.render(world.world(250, 500, 80, 1))
+w = World(50, 100, 10, 1)
+
+render(w.grid)
+display(w.grid)
