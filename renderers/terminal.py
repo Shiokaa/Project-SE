@@ -8,12 +8,17 @@ COLORS = {
     Field.TERRE: "🟫"               # marron foncé terre
 }
 
+COLORS_ENTITY = {
+    "Lapin": "🟥"                   # rouge pour lapin
+}
+
+
 def display(grid: list[list]):
     for row in grid:
         line = ""
         for cell in row:
-            if cell.entity != None and cell.entity.name == "Lapin":
-                line += "🟥"
+            if cell.entities != None:
+                line += COLORS_ENTITY[cell.entities.name]
             else:
                 line += COLORS[cell.field]
         print(line) 
