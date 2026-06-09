@@ -4,7 +4,7 @@ from ecosystem.field import Field
 from ecosystem.cell import Cell
 from config import LAPIN
 
-COLORS = {
+COLORS_FIELD = {
     Field.EAU: (65, 105, 225),              # bleu océan
     Field.EAU_PROFONDE: (10, 25, 71),       # bleu foncé océan profond
     Field.HERBE: (124, 185, 116),           # vert clair herbe
@@ -27,7 +27,7 @@ def render(grid: list[Cell]):
             if cell.entities != None:
                 color = COLORS_ENTITY[cell.entities.name]
             else:
-                color = COLORS[cell.field]
+                color = COLORS_FIELD[cell.field]
             for dy in range(CELL):
                 for dx in range(CELL):
                     img.putpixel((x * CELL + dx, y * CELL + dy), color)
