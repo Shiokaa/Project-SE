@@ -1,6 +1,6 @@
 from ecosystem.field import Field
 
-COLORS = {
+COLORS_FIELD = {
     Field.EAU: "💧",                # bleu océan
     Field.EAU_PROFONDE: "🌊",       # bleu foncé océan profond
     Field.HERBE: "🌿",              # vert clair herbe
@@ -20,5 +20,5 @@ def display(grid: list[list]):
             if cell.entities != None:
                 line += COLORS_ENTITY[cell.entities.name]
             else:
-                line += COLORS[cell.field]
+                line += COLORS_FIELD[cell.field]
         print(line) 
