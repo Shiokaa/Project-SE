@@ -14,7 +14,7 @@ COLORS_FIELD = {
 COLORS_ENTITY = {
 }
 
-def render(grid: list[Cell], screen: pygame.Surface, pixel_size: int):
+def render(grid: list[Cell], screen: pygame.Surface, pixel_size: int, font: pygame.font.Font):
 
     for y, row in enumerate(grid):
         for x, cell in enumerate(row):
@@ -26,6 +26,10 @@ def render(grid: list[Cell], screen: pygame.Surface, pixel_size: int):
                 screen.blit(COLORS_ENTITY.get(cell.entities.name), (rect))
             else:
                 pygame.draw.rect(screen, COLORS_FIELD[cell.field], rect)
+                if cell.resource != None:
+                    text_surf = font.render(str(cell.resource)), True, (255,255,255)
+                    text_rect = text_surf.get_rect(center=rect.center)
+                    screen.blit(text_surf, text_rect)
 
 def run(grid: list[Cell], pixel_size: int):
     # pygame setup
@@ -35,6 +39,8 @@ def run(grid: list[Cell], pixel_size: int):
     img_lapin = pygame.image.load('images/lapin.png').convert_alpha()
     img_lapin_small = pygame.transform.scale(img_lapin, (pixel_size, pixel_size))
     COLORS_ENTITY["Lapin"] = img_lapin_small
+
+    font = pygame.font.SysFont("Arial", 14, bold=True)
 
     clock = pygame.time.Clock()
     running = True
@@ -51,7 +57,7 @@ def run(grid: list[Cell], pixel_size: int):
 
         # RENDER YOUR GAME HERE
 
-        render(grid, screen, pixel_size)
+        render(grid, screen, pixel_size, font)
 
         # flip() the display to put your work on screen
         pygame.display.flip()
