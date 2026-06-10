@@ -12,11 +12,10 @@ COLORS_FIELD = {
 }
 
 COLORS_ENTITY = {
-    "Lapin": (255, 44, 44)                  # rouge pour lapin
 }
 
-def render(grid: list[Cell], screen: pygame.Surface):
-    pixel_size = 20
+def render(grid: list[Cell], screen: pygame.Surface, pixel_size: int):
+
     for y, row in enumerate(grid):
         for x, cell in enumerate(row):
             pixel_y = y * pixel_size
@@ -24,14 +23,19 @@ def render(grid: list[Cell], screen: pygame.Surface):
             rect = pygame.Rect(pixel_x, pixel_y, pixel_size, pixel_size)
 
             if cell.entities != None:
-                pygame.draw.rect(screen, COLORS_ENTITY[cell.entities.name], rect)
+                screen.blit(COLORS_ENTITY.get(cell.entities.name), (rect))
             else:
                 pygame.draw.rect(screen, COLORS_FIELD[cell.field], rect)
 
-def run(grid: list[Cell]):
+def run(grid: list[Cell], pixel_size: int):
     # pygame setup
     pygame.init()
-    screen = pygame.display.set_mode((1280, 720))
+    screen = pygame.display.set_mode((1720, 960))
+
+    img_lapin = pygame.image.load('images/lapin.png').convert_alpha()
+    img_lapin_small = pygame.transform.scale(img_lapin, (pixel_size, pixel_size))
+    COLORS_ENTITY["Lapin"] = img_lapin_small
+
     clock = pygame.time.Clock()
     running = True
 
@@ -47,7 +51,7 @@ def run(grid: list[Cell]):
 
         # RENDER YOUR GAME HERE
 
-        render(grid, screen)
+        render(grid, screen, pixel_size)
 
         # flip() the display to put your work on screen
         pygame.display.flip()
